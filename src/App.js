@@ -1,11 +1,24 @@
 import './App.css';
 
-import Users from "./components/Users/Users";
+
+import {postService} from "./services";
+import {useState} from "react";
+import {Posts, Users} from "./components";
+
 
 function App() {
+
+    const [posts, setPosts] = useState([]);
+
+const getUserId = (userId) => {
+        postService.getPosts(userId).then(({data})=>setPosts(data))
+    }
+
+
   return (
     <div>
-      <Users/>
+        <Users getUserId={getUserId}/>
+        <Posts posts={posts}/>
     </div>
   );
 }
